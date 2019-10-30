@@ -47,3 +47,24 @@ Compreendido RaidX com um folder formado por pen drives em RAID 5. Dentro desse 
 **Macros:**
 
 ```#define CONFIG_FILE "/mymfs.config"```
+
+Caso o diretório X não exista, irá ocorrer um erro no .config
+```./mymfs Z config D E F
+Running config command.
+Error creating config file. Maybe de directory Z does not exist.
+```
+-----------------------------------------------------------------------------------------------------------------------------------
+Comando config cria uma string com os dispositivos que farão parte do raid ex:
+"D E F"
+
+No config cada arquivo vai ser desta forma:
+
+```nome-do-arquivo numero-de-partes```
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Sempre que tiver uma linha com 2 strings, é indicado um arquivo no mymfs
+
+
+
