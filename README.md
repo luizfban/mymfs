@@ -59,7 +59,7 @@ Comando config cria uma string com os dispositivos que farão parte do raid ex:
 
 No config cada arquivo vai ter a configuração nesta forma:
 
-``` FILE NOME NUMERO_PARTES
+``` FILE NOME
     FILE-PART NOME.1 D
     FILE-PART o nome.parte e a unidade
 ```
