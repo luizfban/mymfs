@@ -57,10 +57,12 @@ Error creating config file. Maybe de directory Z does not exist.
 Comando config cria uma string com os dispositivos que farão parte do raid ex:
 "D E F"
 
-No config cada arquivo vai ser desta forma:
+No config cada arquivo vai ter a configuração nesta forma:
 
-```nome-do-arquivo numero-de-partes```
-
+``` FILE NOME NUMERO_PARTES
+    FILE-PART NOME.1 D
+    FILE-PART o nome.parte e a unidade
+```
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
