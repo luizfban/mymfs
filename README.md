@@ -12,7 +12,7 @@ d)licenciamento:GPLv3
 
 **Sobre o programa:**
 
-Foi formulado um novo código, não resultante do antigo projedo do respositório de haddadson.
+Foi formulado um novo código, não resultante do antigo projeto do respositório de haddadson.
 
 **mymfs.cpp é o arquivo principal**, que recebe os argumentos e chama as ações correspondentes.
 
