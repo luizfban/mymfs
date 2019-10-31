@@ -89,20 +89,19 @@ bool import(std::string unityX, std::string filename)
                         int f;
                         while(counter < fileLength)
                         {
-                            filePart = "D/";
+                            filePart = "D:/";
                             filePart.append(baseName);
                             filePart.append(std::to_string(part));
                             ofstream newfile(filePart, std::ofstream::binary);
                             configWriter << "FILE-PART " 
-                                    << filePart << " D" << std::endl;
+                                    << filePart << std::endl;
                             if(counter+MAX_SIZE >= fileLength)
                             {
                                 while(!newfile.eof())
-                                    for (f=counter; f<(counter+MAX_SIZE); f++)
-                                    {
-                                        newfile << buffer[f]; 
-                                        counter++;
-                                    }
+                                {
+                                    newfile << buffer[f]; 
+                                    counter++;
+                                }
                             }
                             else
                             {
