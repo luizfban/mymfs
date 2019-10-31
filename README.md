@@ -1,8 +1,8 @@
 # Trabalho Prático de SO mymfs 
 
-a) contexto do trabalho: PUC MINAS, Curso: Engenharia de Software/Noturno, Disciplina: Sistemas Operacionais, Professor: Lesandro Ponciano, Aluno: Luiz Felipe Antunes
+a) contexto do trabalho: PUC MINAS, Curso: Engenharia de Software/Noturno, Disciplina: Sistemas Operacionais, Professor: Lesandro Ponciano, Aluno: Luiz Felipe Antunes & Ivan
 
-b) desenvolvedor: Luiz Felipe Antunes
+b) desenvolvedores: Luiz Felipe Antunes & Ivan
 
 c)dependências:
 
