@@ -26,7 +26,7 @@ int main(int argc, char** argv)
     bool correct = true;
     /* Todos as chamadas tem pelo menos 3 argumentos */
     if (argc >= 3)
-    {
+    {   
         std::string cmd = argv[2];
         std::string unityX = argv[1];
         if (cmd.compare("config") == 0)
@@ -49,10 +49,14 @@ int main(int argc, char** argv)
         else if  (cmd.compare("listall") == 0)
         {
             std::cout << "Running listall command." << std::endl;
+            listall(unityX);
         }
         else if  (cmd.compare("export") == 0)
         {
+            std::string filename2export = argv[3];
+            std::string externalFile = argv[4];
             std::cout << "Running export command." << std::endl;
+            _export(unityX, filename2export, externalFile);
         }
         else
         {
