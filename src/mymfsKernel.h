@@ -7,7 +7,7 @@
 #ifndef MYMFSKERNEL_H
 #define MYMFSKERNEL_H
 
-#define CONFIG_FILE "/mymfs.config"
+#define CONFIG_FILE "://mymfs.config"
 #define MAX_SIZE 512000
 
 #include <string>
@@ -32,6 +32,10 @@ bool import(std::string unityX, std::string filename);
 void listall(std::string unityX);
 
 bool _export(std::string unityX, std::string filename, std::string extFile);
+
+bool _remove(std::string unityX, std::string filename);
+
+bool removeAll(std::string unityX);
 
 bool fileExist(std::string filename);
 

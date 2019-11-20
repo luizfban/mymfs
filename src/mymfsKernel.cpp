@@ -92,7 +92,7 @@ bool import(std::string unityX, std::string filename)
                         std::string filePart = "";
                         ofstream configWriter(configFile
                             , std::ofstream::out | std::ofstream::app);
-                        configWriter << "FILE " << filename << std::endl;
+                        configWriter << "\nFILE " << filename << std::endl;
                         int f;
                         
                         /* initialize random seed: */
@@ -144,6 +144,8 @@ bool import(std::string unityX, std::string filename)
                     
                     fileReader.close();
                     delete[] buffer;
+                    
+                    return true;
                 }
                 else
                 {
@@ -194,7 +196,7 @@ void listall(std::string unityX)
                     lineSplit = split(line, ' ');
                     if (configReader.eof())
                         break;
-                    if (lineSplit[0] == "FILE")
+                    if (lineSplit.size() == 2 && lineSplit[0] == "FILE")
                     {
                         std::cout << "FILE " << lineSplit[1] << " in device ";
                         getline (configReader, line);
@@ -231,7 +233,7 @@ bool _export(std::string unityX, std::string filename, std::string extFile)
                 std::string line;
                 std::vector<std::string> lineSplit;
                 std::vector<std::string> devices;
-                bool fileExist = false;
+                bool filenameExist = false;
                 
                 /* List of devices */
                 getline (configReader, line);
@@ -245,12 +247,12 @@ bool _export(std::string unityX, std::string filename, std::string extFile)
                         && lineSplit[0] == "FILE" 
                         && lineSplit[1] == filename)
                     {
-                        fileExist = true;
+                        filenameExist = true;
                         break;
                     }
                 }
                 
-                if(fileExist)
+                if(filenameExist)
                 {
                     std::cout << "Exporting the file " << filename << std::endl;
                     
@@ -286,11 +288,13 @@ bool _export(std::string unityX, std::string filename, std::string extFile)
                             break;
                     } 
                     fileWriter.close();
+                    return true;
                 }
                 else
                 {
                     std::cout << "The file " << filename 
                             << " does not exist." << std::endl;
+                    return false;
                 }
                 configReader.close();
             }
@@ -311,6 +315,167 @@ bool _export(std::string unityX, std::string filename, std::string extFile)
         std::cout << "Does not exist a raid X filesystem in " 
             << unityX << std::endl;
         return false;
+    }
+}
+
+
+bool _remove(std::string unityX, std::string filename)
+{
+    std:string configFile = unityX;
+    configFile.append(CONFIG_FILE);
+    if(fileExist(configFile))
+    {
+        std::fstream configReader(configFile, std::fstream::in);
+        if (configReader.is_open())
+        {
+            std::string line;
+            std::vector<std::string> lineSplit;
+            std::vector<std::string> devices;
+            bool filenameExist = false;
+            
+            std::string configTempName = unityX;
+            configTempName.append("://config.temp");
+            std::ofstream configTemp(configTempName, std::ofstream::out);
+
+            /* List of devices */
+            getline (configReader, line);
+            configTemp << line << std::endl;
+            devices = split(line, ' ');
+
+            while (!configReader.eof())
+            {
+                getline (configReader, line);
+                
+                lineSplit = split(line, ' ');
+                if (lineSplit.size() == 2 
+                    && lineSplit[0] == "FILE" 
+                    && lineSplit[1] == filename)
+                {
+                    filenameExist = true;
+                    break;
+                }
+                else
+                {
+                    configTemp << line << std::endl;
+                }
+            }
+
+            if(filenameExist)
+            {
+                std::cout << "Removing the file " << filename << std::endl;
+
+                getline (configReader, line);
+                lineSplit = split(line, ' ');
+                while (lineSplit.size() == 2 && lineSplit[0] == "FILE-PART")
+                {
+                    if( remove( lineSplit[1].c_str() ) != 0 )
+                    {
+                        std::cout << "Error deleting the file " 
+                            << lineSplit[1] << std::endl;
+                        return false;
+                    }
+                    getline (configReader, line);
+                    lineSplit = split(line, ' ');
+                    if (configReader.eof())
+                        break;
+                } 
+                
+                std::string zipfile = "";
+                for (int d=0; d<devices.size(); d++)
+                {
+                    zipfile = "";
+                    zipfile.append(devices[d]);
+                    zipfile.append("://");
+                    zipfile.append(filename);
+                    zipfile.append(".zip");
+                    if (fileExist(zipfile))
+                    {
+                        if( remove( zipfile.c_str() ) != 0 )
+                        {
+                            std::cout << "Error deleting the file " 
+                                << zipfile << std::endl;
+                            return false;
+                        }
+                    }
+                }
+                
+                while (!configReader.eof())
+                {
+                    configTemp << line << std::endl;
+                    getline (configReader, line);
+                }
+                configReader.close();
+                configTemp.close();
+                remove(configFile.c_str());
+                rename(configTempName.c_str(), configFile.c_str());
+                mirrorConfig(unityX);
+                
+                return true;
+            }
+            else
+            {
+                std::cout << "The file " << filename 
+                        << " does not exist." << std::endl;
+                return false;
+            }
+            configReader.close();
+        }
+        else
+        {
+            std::cout << "Error opening the configuration file." << std::endl;
+            return false;
+        }
+    }
+    else
+    {
+        std::cout << "Does not exist a raid X filesystem in " 
+            << unityX << std::endl;
+        return false;
+    }
+}
+
+
+bool removeAll(std::string unityX)
+{
+    std:string configFile = unityX;
+    configFile.append(CONFIG_FILE);
+    if(fileExist(configFile))
+    {
+        fstream configReader(configFile, std::fstream::in);
+            if (configReader.is_open())
+            {
+                std::string line;
+                std::vector<std::string> allFiles;
+                std::vector<std::string> lineSplit;
+                
+                while (!configReader.eof())
+                {
+                    getline (configReader, line);
+                    lineSplit = split(line, ' ');
+                    if (configReader.eof())
+                        break;
+                    if (lineSplit.size() == 2 && lineSplit[0] == "FILE")
+                    {
+                        allFiles.push_back(lineSplit[1]);
+                        getline (configReader, line);
+                        lineSplit = split(line, ' ');
+                        std::cout << lineSplit[1][0] << std::endl;
+                    }
+                }
+                configReader.close();
+                
+                for(std::string f : allFiles)
+                    _remove(unityX, f);
+            }
+            else
+            {
+                std::cout << "Error opening the config file." << std::endl;
+            }
+    }
+    else
+    {
+        std::cout << "Does not exist a raid X filesystem in " 
+            << unityX << std::endl;
     }
 }
 
@@ -373,7 +538,7 @@ void mirrorConfig(std::string unityX)
     fileReader.seekg (0, fileReader.end);
     int fileLength = fileReader.tellg();
     fileReader.seekg (0, fileReader.beg);
-    char * buffer = new char [fileLength];
+    char buffer [fileLength];
     fileReader.read(buffer, fileLength);
     fileReader.close();
     
@@ -385,11 +550,13 @@ void mirrorConfig(std::string unityX)
         if (devices[i] != unityX)
         {
             dev = devices[i];
-            dev.append(":/");
             dev.append(CONFIG_FILE);
+            remove(dev.c_str());
             configWrite =  new ofstream(dev, std::ofstream::out);
-            *configWrite << buffer;
+            for (int b=0; b<fileLength; b++)
+                *configWrite << buffer[b];
             configWrite->close();
+            delete(configWrite);
         }
     }   
 }

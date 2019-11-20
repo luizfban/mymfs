@@ -9,7 +9,9 @@
 mymfs.exe X config D E F\n\
 mymfs.exe X import file.txt\n\
 mymfs.exe X listall\n\
-mymfs.exe X export file.txt C:/file.txt\n"
+mymfs.exe X export file.txt C:/file.txt\n\
+mymfs.exe X remove file.txt\n\
+mymfs.exe X removeall\n"
 
 
 #include <string>
@@ -57,6 +59,17 @@ int main(int argc, char** argv)
             std::string externalFile = argv[4];
             std::cout << "Running export command." << std::endl;
             _export(unityX, filename2export, externalFile);
+        }
+        else if (cmd.compare("remove") == 0)
+        {
+            std::string filename2remove = argv[3];
+            std::cout << "Running remove command." << std::endl;
+            _remove(unityX, filename2remove);
+        }
+        else if (cmd.compare("removeall") == 0)
+        {
+            std::cout << "Running removeall command." << std::endl;
+            removeAll(unityX);
         }
         else
         {
