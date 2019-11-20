@@ -37,6 +37,12 @@ bool _remove(std::string unityX, std::string filename);
 
 bool removeAll(std::string unityX);
 
+bool head100(std::string unityX, std::string filename);
+
+bool tail100(std::string unityX, std::string filename);
+
+bool grep(std::string unityX, std::string filename, std::string wordMatch);
+
 bool fileExist(std::string filename);
 
 std::vector<std::string> split(const std::string& s, char delimiter);

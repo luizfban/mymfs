@@ -480,6 +480,309 @@ bool removeAll(std::string unityX)
 }
 
 
+bool head100(std::string unityX, std::string filename)
+{
+    std:string configFile = unityX;
+    configFile.append(CONFIG_FILE);
+    if(fileExist(configFile))
+    {
+        std::fstream configReader(configFile, std::fstream::in);
+        if (configReader.is_open())
+        {
+            std::string line;
+            std::vector<std::string> lineSplit;
+            std::vector<std::string> devices;
+            bool filenameExist = false;
+
+            /* List of devices */
+            getline (configReader, line);
+            devices = split(line, ' ');
+
+            while (!configReader.eof())
+            {
+                getline (configReader, line);
+                lineSplit = split(line, ' ');
+                if (lineSplit.size() == 2 
+                    && lineSplit[0] == "FILE" 
+                    && lineSplit[1] == filename)
+                {
+                    filenameExist = true;
+                    break;
+                }
+            }
+
+            if(filenameExist)
+            {
+                std::cout << "head100 for file " 
+                    << filename << ":" << std::endl;
+
+                getline (configReader, line);
+                lineSplit = split(line, ' ');
+                std::fstream * fileReader = NULL;
+                int fileLength = 0;
+                int nlines = 0;
+                std::string fileLine;
+                while (lineSplit[0] == "FILE-PART")
+                {
+                    fileReader  = new std::fstream(lineSplit[1]
+                        , std::fstream::in);
+
+                    while(!fileReader->eof())
+                    {
+                        getline (*fileReader, fileLine);
+                        nlines++;
+                        std::cout << fileLine << std::endl;
+                        if (nlines == 100)
+                            break;
+                    }
+
+                    fileReader->close();
+                    delete(fileReader);
+                    
+                    if (nlines == 100)
+                        break;
+
+                    getline (configReader, line);
+                    lineSplit = split(line, ' ');
+                    if (configReader.eof())
+                        break;
+                } 
+                return true;
+            }
+            else
+            {
+                std::cout << "The file " << filename 
+                        << " does not exist." << std::endl;
+                return false;
+            }
+            configReader.close();
+        }
+        else
+        {
+            std::cout << "Error opening the configuration file." << std::endl;
+            return false;
+        }
+    }
+    else
+    {
+        std::cout << "Does not exist a raid X filesystem in " 
+            << unityX << std::endl;
+        return false;
+    }
+}
+
+
+bool tail100(std::string unityX, std::string filename)
+{
+    std:string configFile = unityX;
+    configFile.append(CONFIG_FILE);
+    if(fileExist(configFile))
+    {
+        std::fstream configReader(configFile, std::fstream::in);
+        if (configReader.is_open())
+        {
+            std::string line;
+            std::vector<std::string> lineSplit;
+            std::vector<std::string> devices;
+            bool filenameExist = false;
+
+            /* List of devices */
+            getline (configReader, line);
+            devices = split(line, ' ');
+
+            while (!configReader.eof())
+            {
+                getline (configReader, line);
+                lineSplit = split(line, ' ');
+                if (lineSplit.size() == 2 
+                    && lineSplit[0] == "FILE" 
+                    && lineSplit[1] == filename)
+                {
+                    filenameExist = true;
+                    break;
+                }
+            }
+
+            if(filenameExist)
+            {
+                std::cout << "tail100 for file " 
+                    << filename << ":" << std::endl;
+
+                getline (configReader, line);
+                lineSplit = split(line, ' ');
+                std::fstream * fileReader = NULL;
+                std::vector<std::string> allLines;
+                std::string fileLine = "";
+                while (lineSplit[0] == "FILE-PART")
+                {
+                    fileReader  = new std::fstream(lineSplit[1]
+                        , std::fstream::in);
+
+                    while(!fileReader->eof())
+                    {
+                        getline (*fileReader, fileLine);
+                        allLines.push_back(fileLine);
+                    }
+
+                    fileReader->close();
+                    delete(fileReader);
+
+                    getline (configReader, line);
+                    lineSplit = split(line, ' ');
+                    if (configReader.eof())
+                        break;
+                } 
+                int nlines = 0;
+                int show = 100;
+                if (allLines.size() > show)
+                    for (int li=(allLines.size()-show); 
+                        li < allLines.size(); li++)
+                        std::cout << allLines[li] << std::endl;
+                else
+                {
+                    for (int li=0; li<allLines.size(); li++)
+                    {
+                        std::cout << allLines[li] << std::endl;
+                        nlines++;
+                        if (nlines == show)
+                            break;
+                    }
+                }
+                
+                return true;
+            }
+            else
+            {
+                std::cout << "The file " << filename 
+                        << " does not exist." << std::endl;
+                return false;
+            }
+            configReader.close();
+        }
+        else
+        {
+            std::cout << "Error opening the configuration file." << std::endl;
+            return false;
+        }
+    }
+    else
+    {
+        std::cout << "Does not exist a raid X filesystem in " 
+            << unityX << std::endl;
+        return false;
+    }
+}
+
+
+bool grep(std::string unityX, std::string filename, std::string wordMatch)
+{
+    std:string configFile = unityX;
+    configFile.append(CONFIG_FILE);
+    if(fileExist(configFile))
+    {
+        std::fstream configReader(configFile, std::fstream::in);
+        if (configReader.is_open())
+        {
+            std::string line;
+            std::vector<std::string> lineSplit;
+            std::vector<std::string> devices;
+            bool filenameExist = false;
+
+            /* List of devices */
+            getline (configReader, line);
+            devices = split(line, ' ');
+
+            while (!configReader.eof())
+            {
+                getline (configReader, line);
+                lineSplit = split(line, ' ');
+                if (lineSplit.size() == 2 
+                    && lineSplit[0] == "FILE" 
+                    && lineSplit[1] == filename)
+                {
+                    filenameExist = true;
+                    break;
+                }
+            }
+
+            if(filenameExist)
+            {
+                std::cout << "grep for file " 
+                    << filename << " with word " << wordMatch 
+                    << " :" << std::endl;
+
+                getline (configReader, line);
+                lineSplit = split(line, ' ');
+                std::fstream * fileReader = NULL;
+                std::vector<std::string> allLines;
+                std::string fileLine = "";
+                while (lineSplit[0] == "FILE-PART")
+                {
+                    fileReader  = new std::fstream(lineSplit[1]
+                        , std::fstream::in);
+
+                    while(!fileReader->eof())
+                    {
+                        getline (*fileReader, fileLine);
+                        allLines.push_back(fileLine);
+                    }
+
+                    fileReader->close();
+                    delete(fileReader);
+
+                    getline (configReader, line);
+                    lineSplit = split(line, ' ');
+                    if (configReader.eof())
+                        break;
+                } 
+                int lc = 0;
+                bool match = false;
+                for (std::string line2grep : allLines)
+                {
+                    lineSplit = split(line2grep, ' ');
+                    lc++;
+                    for (std::string word : lineSplit)
+                    {
+                        if (word == wordMatch)
+                        {
+                            std::cout << "Encontrado " << lc << std::endl;
+                            match = true;
+                            break;
+                        }
+                        if (match)
+                            break;
+                    }
+                    if (match)
+                        break;
+                }
+                if (!match)
+                    std::cout << "Não encontrado" << std::endl;
+                
+                return true;
+            }
+            else
+            {
+                std::cout << "The file " << filename 
+                        << " does not exist." << std::endl;
+                return false;
+            }
+            configReader.close();
+        }
+        else
+        {
+            std::cout << "Error opening the configuration file." << std::endl;
+            return false;
+        }
+    }
+    else
+    {
+        std::cout << "Does not exist a raid X filesystem in " 
+            << unityX << std::endl;
+        return false;
+    }
+}
+
+
 bool fileExist(std::string filename)
 {
     if (FILE *file = fopen(filename.c_str(), "r"))

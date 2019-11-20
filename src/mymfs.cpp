@@ -11,7 +11,10 @@ mymfs.exe X import file.txt\n\
 mymfs.exe X listall\n\
 mymfs.exe X export file.txt C:/file.txt\n\
 mymfs.exe X remove file.txt\n\
-mymfs.exe X removeall\n"
+mymfs.exe X removeall\n\
+mymfs.exe X head100 file.txt\n\
+mymfs.exe X tail100 file.txt\n\
+mymfs.exe X grep word file.txt\n"
 
 
 #include <string>
@@ -70,6 +73,25 @@ int main(int argc, char** argv)
         {
             std::cout << "Running removeall command." << std::endl;
             removeAll(unityX);
+        }
+        else if (cmd.compare("head100") == 0)
+        {
+            std::string filename = argv[3];
+            std::cout << "Running head100 command." << std::endl;
+            head100(unityX, filename);
+        }
+        else if (cmd.compare("tail100") == 0)
+        {
+            std::string filename = argv[3];
+            std::cout << "Running tail100 command." << std::endl;
+            tail100(unityX, filename);
+        }
+        else if (cmd.compare("grep") == 0)
+        {
+            std::string filename = argv[3];
+            std::string wordMatch = argv[4];
+            std::cout << "Running grep command." << std::endl;
+            grep(unityX, filename, wordMatch);
         }
         else
         {
