@@ -29,7 +29,7 @@ bool config(std::string unityX, std::string devices);
 
 bool import(std::string unityX, std::string filename);
 
-void listall(std::string unityX);
+int listall(std::string unityX);
 
 bool _export(std::string unityX, std::string filename, std::string extFile);
 

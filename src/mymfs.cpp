@@ -16,7 +16,6 @@ mymfs.exe X head100 file.txt\n\
 mymfs.exe X tail100 file.txt\n\
 mymfs.exe X grep word file.txt\n"
 
-
 #include <string>
 #include <iostream>
 #include <cstdlib>
@@ -88,8 +87,8 @@ int main(int argc, char** argv)
         }
         else if (cmd.compare("grep") == 0)
         {
-            std::string filename = argv[3];
-            std::string wordMatch = argv[4];
+            std::string filename = argv[4];
+            std::string wordMatch = argv[3];
             std::cout << "Running grep command." << std::endl;
             grep(unityX, filename, wordMatch);
         }

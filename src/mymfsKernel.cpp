@@ -87,7 +87,9 @@ bool import(std::string unityX, std::string filename)
                     {
                         int counter = 0;
                         int part = 1;
-                        std::string baseName = filename;
+                        std::vector<std::string> filenameSplit;
+                        filenameSplit = split(filename, '/');
+                        std::string baseName = filenameSplit.back();
                         baseName.append(".");
                         std::string filePart = "";
                         ofstream configWriter(configFile
@@ -108,7 +110,8 @@ bool import(std::string unityX, std::string filename)
                         {
                             filePart = devices[deviceToWrite];
                             filePart.append(":/");
-                            filePart.append(baseName);
+                            filePart.append(filenameSplit.back());
+                            filePart.append(".");
                             filePart.append(std::to_string(part));
                             ofstream newfile(filePart, std::ofstream::binary);
                             configWriter << "FILE-PART " 
@@ -132,7 +135,7 @@ bool import(std::string unityX, std::string filename)
                         }
                         std::string fileZip = devices[deviceToWriteBackup];
                         fileZip.append(":/");
-                        fileZip.append(filename);
+                        fileZip.append(filenameSplit.back());
                         fileZip.append(".zip");
                         zipFile((char*)filename.c_str(), 
                             (char*) fileZip.c_str());
@@ -176,8 +179,9 @@ bool import(std::string unityX, std::string filename)
 }
 
 
-void listall(std::string unityX)
+int listall(std::string unityX)
 {
+    int nfiles = 0;
     std:string configFile = unityX;
     configFile.append(CONFIG_FILE);
     if(fileExist(configFile))
@@ -202,19 +206,23 @@ void listall(std::string unityX)
                         getline (configReader, line);
                         lineSplit = split(line, ' ');
                         std::cout << lineSplit[1][0] << std::endl;
+                        nfiles++;
                     }
                 }
                 configReader.close();
+                return nfiles;
             }
             else
             {
                 std::cout << "Error opening the config file." << std::endl;
+                return 0;
             }
     }
     else
     {
         std::cout << "Does not exist a raid X filesystem in " 
             << unityX << std::endl;
+        return 0;
     }
 }
 
@@ -262,7 +270,7 @@ bool _export(std::string unityX, std::string filename, std::string extFile)
                     std::ifstream * fileReader = NULL;
                     int fileLength = 0;
                     std::ofstream fileWriter(extFile, std::ofstream::binary);
-                    while (lineSplit[0] == "FILE-PART")
+                    while (lineSplit.size() == 2 && lineSplit[0] == "FILE-PART")
                     {
                         fileReader  = new std::ifstream(lineSplit[1]
                             , std::ifstream::binary);
@@ -396,6 +404,7 @@ bool _remove(std::string unityX, std::string filename)
                                 << zipfile << std::endl;
                             return false;
                         }
+                        break;
                     }
                 }
                 
