@@ -1,8 +1,15 @@
 # Trabalho Prático de SO mymfs 
 
-a) **Contexto do trabalho:** Pontifícia Universidade Católica de Minas Gerais, Curso: Engenharia de Software/Noturno, Disciplina: Sistemas Operacionais, Professor: Lesandro Ponciano, Aluno: Luiz Felipe de Castro Baia Antunes & Guilherme Henrique Ladislau Biagini
+a) **Contexto do trabalho:** Pontifícia Universidade Católica de Minas Gerais. 
+**Curso:** Engenharia de Software/Noturno. 
+**Disciplina:** Sistemas Operacionais. **Professor:** Lesandro Ponciano 
+**Alunos:** Luiz Felipe de Castro Baia Antunes & Guilherme Henrique Ladislau Biagini
+
+---------------------------------------------------------------------------------------------------------------------------------
 
 b) **Desenvolvedores:** Luiz Felipe de Castro Baia Antunes & Guilherme Henrique Ladislau Biagini
+
+---------------------------------------------------------------------------------------------------------------------------------
 
 c) **Dependências:** O  trabalho foi feito na linguagem C++ na IDE NetBeans implementando as funções config, import, listall, export, remove, removeall, head100, tail100, e grep, com a difilculdade de entender algumas partes e extender o código, passado pelo professor Lesando decidimos fazer um novo código utilizando como exemplo algumas lógicas e funções do código do git Haddadson (https://github.com/Haddadson/mymfs) o mesmo passado pelo professor.
 
