@@ -19,6 +19,21 @@ d) **Licenciamento:GPLv3**
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
+ ``
+ Algumas classes e bibliotecas que utilizamos:
+
+iostream
+cstdlib
+string
+fstream
+sstream
+vector
+stdlib
+time
+stdio
+``
+---------------------------------------------------------------------------------------------------------------------------------
+
 **Sobre o programa:**
 
 Foi formulado um novo código, não resultante do antigo projeto do respositório de haddadson.
