@@ -77,5 +77,14 @@ No config cada arquivo vai ter a configuração nesta forma:
 
 Sempre que tiver uma linha com 2 strings, é indicado um arquivo no mymfs
 
+-------------------------------------------------------------------------------------------------------------------------------------
 
+Resumo sobre os TDD Implementados:
+Configtest ele conta se tem 3 arquivos em cada partição (Dentro do config).
+Import testa se o arquivo importado está dentro de D, E ou F o .zip tem que estar em outra partição. Por exemplo o arquivo importado está dentro de D o .zip deve estar dentro E ou F.
+Listall retorna um número de arquivos que ele viu (imprimiu).
+Export ele roda e testa se o arquivo exportado existe.
+Remove ele testa se o arquivo removido não esta na pasta mais se o conuter nao foi 0 o arquivo ainda ta la.
+Removeall roda a funçao a listall e olha se ta igual a 0.
+Head, Tail e Greap ele ver se afunçao retornou true ou false.
 
