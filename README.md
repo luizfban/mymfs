@@ -15,7 +15,7 @@ c) **Dependências:** O  trabalho foi feito na linguagem C++ na IDE NetBeans imp
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
-d) **Licenciamento:GPLv3**
+d) **Licenciamento:GPLv3** Créditos : https://github.com/Haddadson/mymfs
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ stdio
 
 **Sobre o programa:**
 
-Foi formulado um novo código, não resultante do antigo projeto do respositório de haddadson.
+Foi formulado um novo código, utilizando como exemplo o antigo projeto do respositório de haddadson (https://github.com/Haddadson/mymfs).
 
 **mymfs.cpp é o arquivo principal**, que recebe os argumentos e chama as ações correspondentes.
 
