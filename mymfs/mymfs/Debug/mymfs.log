@@ -1,0 +1,3 @@
+﻿  zip.c
+C:\Users\rpban\source\repos\luizfban\mymfs_vs_sln\mymfs\mymfs\miniz.h(6089,45): warning C4244:  'return': conversion from 'mz_uint64' to 'mz_uint', possible loss of data
+  mymfs.vcxproj -> C:\Users\rpban\source\repos\luizfban\mymfs_vs_sln\mymfs\Debug\mymfs.exe
