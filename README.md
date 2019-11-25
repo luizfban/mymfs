@@ -110,4 +110,5 @@ Remove ele testa se o arquivo removido não esta na pasta mais se o conuter nao 
 Removeall roda a funçao a listall e olha se ta igual a 0.
 Head, Tail e Greap ele ver se afunçao retornou true ou false.
 ```
-
+Para rodar o código no Visual Studio é necessário colocar um comando no Visual Studio.
+Para colocar o comando você deve abrir as propriedades do projeto ir em C/C++ , ir em Preprocessor , Preprocessor Definitions e dar um ; após o código ja existente e inserir _CRT_SECURE_NO_DEPRECATE e dar ok.
