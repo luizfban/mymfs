@@ -62,6 +62,12 @@ mymfs.exe X config D E F
 mymfs.exe X import file.txt
 mymfs.exe X listall
 mymfs.exe X export file.txt C:/file.txt
+mymfs.exe X remove file.txt
+mymfs.exe X removeall
+mymfs.exe X head100 file.txt
+mymfs.exe X tail100 file.txt
+mymfs.exe X grep word file.txt
+
 ```
 -----------------------------------------------------------------------------------------------------------------------------------
 
