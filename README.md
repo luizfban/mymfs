@@ -46,6 +46,7 @@ As funcionalidades estão nos arquivos:
 *  mymfsKernel.cpp (implementação) 
 *  mymfskernel.h (interface)
 
+
 --------------------------------------------------------------------------------------------------------------------------------------
 
 **Para compliar:**
@@ -73,6 +74,10 @@ mymfs.exe X grep word file.txt
 -----------------------------------------------------------------------------------------------------------------------------------
 
 Compreendido RaidX com um folder formado por pen drives em RAID 5. Dentro desse folder, tem o arquivo de configuração, .config, como também os demais arquivos gravados.
+
+Para que todos as partições tenha o mesmo .config existe um método void mirrorConfig(std::string unityX)
+
+No import a escolha da partição/device que será salvo/escrito o arquivo é realizado a partir de mode de um número randômico (rand()) pela quatidade de devices (particições). A escolha do .zip do arquivo salvo é o mod  de (local salvo o arquivo +1) pela quantidade de partições, sendo de salvo de forma circular.
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
