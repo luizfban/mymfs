@@ -475,16 +475,19 @@ bool removeAll(std::string unityX)
                 
                 for(std::string f : allFiles)
                     _remove(unityX, f);
+				return true;
             }
             else
             {
                 std::cout << "Error opening the config file." << std::endl;
+				return false;
             }
     }
     else
     {
         std::cout << "Does not exist a raid X filesystem in " 
             << unityX << std::endl;
+		return false;
     }
 }
 
@@ -850,7 +853,7 @@ void mirrorConfig(std::string unityX)
     fileReader.seekg (0, fileReader.end);
     int fileLength = fileReader.tellg();
     fileReader.seekg (0, fileReader.beg);
-    char buffer [fileLength];
+    char *buffer = new char [fileLength];
     fileReader.read(buffer, fileLength);
     fileReader.close();
     
@@ -870,5 +873,6 @@ void mirrorConfig(std::string unityX)
             configWrite->close();
             delete(configWrite);
         }
-    }   
+    }
+	delete(buffer);
 }
